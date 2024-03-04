@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.WishListDao">
+
+    
+ <select id="getTotalWishlistCountByCompanyId" resultType="Integer">
+SELECT SUM(sub.total_wishlist_count) AS total_wishlist_count
+FROM (
+    SELECT sr.company_id, COUNT(w.wishlist_id) AS total_wishlist_count
+    FROM study_room sr
+    LEFT JOIN wishlist w ON sr.room_id = w.room_id
+    WHERE sr.company_id = #{company_id} -- 여기서는 파라미터로 받은 company_id 사용
+    GROUP BY sr.company_id
+) AS sub
+</select>
+  
+</mapper>

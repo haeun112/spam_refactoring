@@ -1,0 +1,194 @@
+﻿
+
+/* .mpContent {
+    margin-left: 1050px;
+    padding: 50px;
+} */
+
+/*.list-form{
+    position: relative; /* 상대 위치 지정 
+    left: 20%;
+    top: 20%;
+    transform: translate(10%, -20%);  화면 중앙 정렬을 위한 transform 사용 
+    max-width: 80%;  예약 리스트의 최대 너비 설정 
+}*/
+
+/* .list-form {
+    position: relative;
+    max-width: 80%;  예약 리스트의 최대 너비 설정 
+    margin: 0 auto;  수평 가운데 정렬을 위한 마진 설정 
+    transform: translate(10%, -20%);
+    padding: 20px;  필요한 경우 여백 추가
+
+} */
+
+body{
+  background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+}
+
+
+
+
+/* 화면 크기에 따른 너비 조절 */
+@media (max-width: 768px) {
+    .list-form {
+        width: 95%; /* 화면이 작을 때 표 크기를 더 줄임 */
+    }
+}
+
+.i_menu {
+    display: flex;
+    /* Flexbox 사용 */
+    flex-direction: column;
+    /* 세로로 정렬 */
+    align-items: center;
+    /* 가운데 정렬 */
+    position: relative;
+    max-width: 400px;
+    /* 최대 가로 너비 설정 */
+    padding: 20px;
+    /* 여백 추가 (원하는 여백 크기로 조정 가능) */
+    left: 3%;
+    /* 왼쪽에서 10% 여백 */
+    top: 190px;
+    /* 위에서 20% 여백 */
+}
+
+
+
+.btn_i_menu {
+    display: flex;
+    flex-direction: column;
+    /* 세로로 정렬 */
+    gap: 10px;
+    /* 버튼 사이의 간격 조절 */
+}
+
+.btn_i_menu button {
+        /* 버튼 스타일 */
+        padding: 10px 20px;
+        background-color: none;
+        color: #815B5B;
+        border: none;
+        cursor: pointer;
+        width: 120px;  
+        /* 버튼 상자 너비 설정 */
+        max-width: 200px;
+        /* 최대 가로 너비 설정 (원하는 크기로 조정 가능) */
+        height: 50px;
+        /* 버튼 상자 높이 설정 */
+        border-radius: 30px;
+}
+
+.button {
+    float: left;
+    min-width: 150px;
+    max-width: 250px;
+    display: block;
+    margin: 1em;
+    padding: 1em 2em;
+    border: none;
+    background: none;
+    color: inherit;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .button:focus {
+    outline: none;
+  }
+  .button > span {
+    vertical-align: middle;
+  }
+  .button--antiman {
+    background: none;
+    border: none;
+    height: 60px;
+  }
+  .button--antiman.button--inverted,
+  .button--antiman.button--inverted-alt {
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  }
+  .button--antiman > span {
+    padding-left: 0.35em;
+  }
+  .button--antiman::before,
+  .button--antiman::after {
+    content: '';
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  }
+  .button--antiman::before {
+    border: 2px solid #815B5B;
+    opacity: 0;
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+    transform: scale3d(1.2, 1.2, 1);
+  }
+  .button--antiman.button--border-thin::before {
+    border-width: 1px;
+  }
+  .button--antiman.button--border-medium::before {
+    border-width: 2px;
+  }
+  .button--antiman.button--border-thick::before {
+    border-width: 3px;
+  }
+  .button--antiman.button--inverted::before {
+    border-color: #7986cb;
+  }
+  .button--antiman.button--inverted-alt::before {
+    border-color: #3f51b5;
+  }
+  .button--antiman::after {
+    background: #F1D3B3;
+  }
+  .button--antiman.button--inverted::after {
+    background: #7986cb;
+  }
+  .button--antiman.button--inverted-alt::after {
+    background: #3f51b5;
+  }
+  .button--antiman.button--inverted:hover {
+    color: #7986cb;
+  }
+  .button--antiman.button--inverted-alt:hover {
+    color: #3f51b5;
+  }
+  .button--antiman:hover::before {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  .button--antiman:hover::after {
+    opacity: 0;
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+
+  a {
+    text-decoration: none;
+      color: #AA7070; 
+}
+
+a:hover { color: #DF5E5E; }
+
+th[scope="col"] {
+  color: #5E454B; /* 원하는 색상으로 변경 */
+  /* 추가적인 스타일을 여기에 지정할 수 있습니다. */
+}

@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+<!-- <web-app>
+=======
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+
+	<!-- JSTL Configuration -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/lib/jstl-1.2.jar</taglib-location>
+		</taglib>
+	</jsp-config>
+>>>>>>> yongbin
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.gif</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.ico</url-pattern>
+		<url-pattern>*.swf</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>jsp</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>*.jspx</url-pattern>
+	</servlet-mapping>
+<<<<<<< HEAD
+</web-app> -->
+=======
+</web-app>
+>>>>>>> yongbin

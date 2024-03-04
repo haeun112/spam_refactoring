@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.SeatDao">
+
+    <!-- 좌석 정보 조회 -->
+    <select id="getAllSeats" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT * FROM seats
+    </select>
+
+    <!-- 좌석 등록을 위한 room_id 조회 -->
+    <select id="getRoomById" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT  * FROM  study_room WHERE room_id = #{room_id}
+    </select>
+
+    <!-- 좌석 등록한 데이터를 seats 테이블에 삽입 -->
+    <select id="saveSelectedSeats" parameterType="com.spam9700.spam.dto.SeatDto">
+        INSERT  INTO  seats (room_id, seat_number, is_reserved) VALUES (#{room_id}, #{seat_number}, 0)
+    </select>
+
+    <!-- 새로운 데이터 저장 후 이전 데이터 삭제 -->
+    <delete id="deletePreviousSeatsByRoomId" parameterType="int">
+        DELETE FROM seats WHERE room_id = #{room_id}
+    </delete >
+
+    <!-- 데이터베이스에 저장된 좌석 정보 조회 -->
+    <select id="getAllSeatsOfData" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT seat_number, room_id
+        FROM seats;
+    </select>
+
+    <!-- room_name을 바탕으로 room_id 조인하여 데이터에서 좌석 조회 -->
+    <select id="getSeatsByRoomName" parameterType="java.lang.String" resultType="com.spam9700.spam.dto.SeatDto">
+    SELECT s.seat_id, s.room_id, s.seat_number, s.is_reserved, s.available
+    FROM study_room sr
+    INNER JOIN seats s ON sr.room_id = s.room_id
+    WHERE sr.room_name = #{room_name}
+    </select>
+
+</mapper>

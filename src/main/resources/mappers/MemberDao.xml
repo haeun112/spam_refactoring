@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.MemberDao">
+
+
+    <!-- join -->
+    <insert id="iJoin" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
+        INSERT INTO customer_member (customer_id, customer_pwd, customer_name, customer_email, customer_birth, customer_phone)
+        VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})
+    </insert>
+
+    <insert id="cJoin" parameterType="com.spam9700.spam.dto.CompanyMemberDto">
+        INSERT INTO company_member (company_id, company_pwd, company_name, company_email, company_businessnum, company_phone)
+        VALUES (#{company_id}, #{company_pwd}, #{company_name}, #{company_email}, #{company_businessnum}, #{company_phone})
+    </insert>
+
+    <!-- login -->
+
+    <select id="iLogin" resultType="boolean">
+        SELECT COUNT(*) FROM customer_member
+        WHERE customer_id = #{customer_id} AND customer_pwd = #{customer_pwd}
+    </select>
+
+    <select id="cLogin" resultType="boolean">
+         SELECT COUNT(*) FROM company_member
+         WHERE company_id = #{company_id} AND company_pwd = #{company_pwd} AND company_businessnum = #{company_businessnum}
+    </select>
+
+    <!-- idCheck -->
+
+    <select id="iIdCheck" resultType="boolean">
+        SELECT COUNT(*) 
+        FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </select>
+    <select id="cIdCheck" resultType="boolean">
+      SELECT COUNT(*) 
+        FROM company_member
+        WHERE company_id = #{company_id}
+    </select>
+
+
+    <!-- findId -->
+
+    <select id="findId" parameterType="map">
+        SELECT customer_id
+        FROM customer_member
+        WHERE customer_name = #{customer_name}
+        AND customer_email = #{customer_email}
+    </select>
+
+    <!-- findPwd -->
+
+    <select id="findPwd">
+        SELECT customer_pwd
+        FROM customer_member
+        WHERE customer_id = #{customer_id}
+        AND customer_email = #{customer_email}
+    </select>
+
+    <!-- cLogin -->
+
+    <update id="updateMypage" parameterType="CustomerMemberDto">
+        UPDATE customer_member
+        SET
+        customer_name = #{customer_name},
+        customer_email = #{customer_email},
+        customer_phone = #{customer_phone}
+        WHERE customer_id = #{customer_id}
+    </update>
+
+    <select id="getCustomerInfoById" resultType="CustomerMemberDto">
+        SELECT * FROM customer_member 
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <delete id="deleteMemberInfo" parameterType="String">
+        DELETE FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </delete>
+
+    <delete id="deleteCMemberInfo" parameterType="String">
+        DELETE FROM company_member
+        WHERE company_id = #{company_id}
+    </delete>
+
+<!-- company_id 회원 탈퇴시 study_room의 room_id에 등록된 모든 리뷰를 먼저 삭제 -->
+    <delete id="deleteReviewsByRoomId" parameterType="String">
+    DELETE FROM review
+    WHERE room_id IN (SELECT room_id FROM study_room WHERE company_id = #{company_id})
+</delete>
+
+    <!-- // company_id 회원 탈퇴시 study_room에 등록된 데이터값 삭제 -->
+    <delete id="deleteStudyRoomsByCompanyId" parameterType="String"> 
+    DELETE FROM study_room
+    WHERE company_id = #{company_id}
+    </delete>
+
+    <!-- idCheck -->
+
+    <select id="idCheck" resultType="boolean">
+    SELECT COUNT(*) AS total_count
+FROM (
+    SELECT customer_id AS id
+    FROM customer_member
+    WHERE customer_id = #{customer_id}
+    
+    UNION ALL
+    
+    SELECT company_id AS id
+    FROM company_member
+    WHERE company_id = #{company_id}
+) AS id_union
+    </select>
+</mapper>

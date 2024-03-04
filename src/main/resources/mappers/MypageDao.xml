@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.MypageDao">
+
+    <insert id="insertReview" parameterType="map">
+        INSERT INTO review (review_content, rating, customer_id, room_id)
+        VALUES (#{review_content},#{rating},#{customer_id},#{room_id});
+    </insert>
+
+    <!-- 예약 내역 불러오기 -->
+    <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
+        SELECT sr.*, r.room_name
+        FROM seat_reservations sr
+        LEFT JOIN study_room r ON sr.room_id = r.room_id
+        WHERE sr.customer_id = #{customer_id}
+        ORDER BY sr.reservation_id DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+
+
+    </select>
+
+    <!-- 예약 내역 페이징 -->
+    <select id="getTotalReservationsByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM seat_reservations
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- 리뷰 내역 불러오기 -->
+    <select id="getReviewListByCustomerId" resultType="com.spam9700.spam.dto.ReviewDto">
+        <!-- SELECT * FROM review
+        WHERE customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset} -->
+        SELECT r.*, sr.room_name
+        FROM review r
+        INNER JOIN study_room sr ON r.room_id = sr.room_id
+        WHERE r.customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 리뷰 내역 페이징 -->
+    <select id="getTotalReviewsByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM review
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- QnA 내역 불러오기 -->
+    <select id="getQnaListByUserId" resultType="com.spam9700.spam.dto.QnaBoardDto">
+        SELECT * FROM board
+        WHERE user_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- QnA 내역 페이징 -->
+    <select id="getTotalQnaListByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM board
+        WHERE user_id = #{customer_id}
+    </select>
+
+    <!-- 찜 목록 내역 불러오기 -->
+    <select id="getWishListWithRoomNameByCustomerId" resultType="com.spam9700.spam.dto.WishListDto">
+        SELECT w.*, sr.room_name
+        FROM wishlist w
+        INNER JOIN study_room sr ON w.room_id = sr.room_id
+        WHERE w.customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+
+    </select>
+
+    <!-- 찜 목록 내역 페이징 -->
+    <select id="getTotalWishListByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM wishlist
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- 예약취소 -->
+    <select id="cancelReservation" resultType="com.spam9700.spam.dto.ReservationDto">
+        UPDATE seat_reservations
+        SET status = '0'
+        WHERE reservation_id = #{reservation_id};
+    </select>
+</mapper>

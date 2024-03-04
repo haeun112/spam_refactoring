@@ -1,0 +1,120 @@
+﻿/* 기본 설정 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0e9e4;  /* 밝은 베이지 */
+    margin: 0;
+    padding: 0;
+}
+
+.container_class {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* 검색 옵션 */
+.search_class {
+    background: #556052;  /* 다크 그린 */
+    color: #f0e9e4;  /* 밝은 베이지 */
+    padding: 1rem;
+    border-radius: 4;
+}
+
+.search_input {
+    padding: 8px;
+    margin-right: 10px;
+    background: #f0e9e4;
+    border: 3px solid #7d6c61;  /* 다크 베이지 */
+    border-radius: 4;
+}
+
+.btn_search {
+    background: #7d6c61;  /* 다크 베이지 */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    
+}
+
+.btn_search:hover {
+    background: #55443c;  /* 더 어두운 베이지 */
+}
+
+/* 리스트 설정 */
+.list-form ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* .list-form li {
+    background: #f0e9e4;  
+    margin: 8px 0;
+    padding: 12px;
+    border: 3px solid #7d6c61;
+} */
+
+.list-form li {
+    background: #f0e9e4;
+    margin: 8px 0;
+    padding: 12px;
+    border-bottom: 3px solid #7d6c61;  /* 아래면만 색상을 줌 */
+    border-top: none;  /* 위쪽 테두리를 없앰 */
+    border-left: none;  /* 왼쪽 테두리를 없앰 */
+    border-right: none;  /* 오른쪽 테두리를 없앰 */
+}
+
+
+/* 독서실 정보 */
+.info_tit a {
+    color: #394032;  
+    text-decoration: none;
+}
+
+.info_tit a:hover {
+    text-decoration: underline;
+    color: #7d6c61;  
+}
+
+/* 지역 선택 창 */
+.search_input#region {
+    background-color: #f0e9e4;  /* 배경색 */
+    border: 1px solid #7d6c61;  /* 테두리 색 */
+    border-radius: 4px;  /* 둥근 테두리 */
+    color: #333;  /* 텍스트 색 */
+    font-size: 16px;  /* 폰트 크기 */
+    padding: 10px;  /* 패딩 */
+    margin-right: 10px;  /* 우측 마진 */
+    cursor: pointer;  /* 마우스 포인터 스타일 */
+}
+
+.search_input#region:hover {
+    border-color: #5a5048;  /* 마우스 호버 시 테두리 색 */
+}
+
+.search_input#region:focus {
+    border-color: #5a5048;  /* 포커스 시 테두리 색 */
+    outline: none;  /* 아웃라인 제거 */
+}
+
+/* 지역 선택 창 */
+.search_input#region {
+    background-color: #f0e9e4;  /* 배경색 */
+    border: 1px solid #7d6c61;  /* 테두리 색 */
+    border-radius: 4px;  /* 둥근 테두리 */
+    color: #333;  /* 텍스트 색 */
+    font-size: 16px;  /* 폰트 크기 */
+    padding: 10px;  /* 패딩 */
+    margin-right: 10px;  /* 우측 마진 */
+    cursor: pointer;  /* 마우스 포인터 스타일 */
+}
+
+.search_input#region:hover {
+    border-color: #5a5048;  /* 마우스 호버 시 테두리 색 */
+}
+
+.search_input#region:focus {
+    border-color: #5a5048;  /* 포커스 시 테두리 색 */
+    outline: none;  /* 아웃라인 제거 */
+}

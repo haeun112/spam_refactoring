@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace = "com.spam9700.spam.dao.CListDao">
+
+<insert id="monthly">
+    INSERT INTO monthly_usage (usage_id, company_id, year, month, user_count) 
+    VALUES (#{usage_id}, #{company_id}, #{year}, #{month}, #{user_count})
+</insert>
+
+</mapper>

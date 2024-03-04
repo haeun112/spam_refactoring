@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.DetailPageDao">
+
+    <!-- room_name을 사용하여 스터디 룸 조회 -->
+    <select id="getStudyRoomByRoomName" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE room_name = #{room_name}
+    </select>
+
+
+    <!-- room_description을 사용하여 스터디 카페 이용시간 조회 -->
+    <select id="getOpenTimeByStudyRoom" parameterType="String" resultType="String">
+        SELECT room_description FROM study_room WHERE room_name = #{room_name}
+    </select>
+
+    <!-- 모든 스터디 룸 조회 -->
+    <select id="getAllRooms" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room;
+    </select>
+
+    <select id="getRoomsByName" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE room_name = #{room_name}
+    </select>
+
+    <!-- CompanyMemberDto에서 company_id를 가져오는 SQL -->
+    <select id="getCompanyIdFromCompanyMember" resultType="DetailPageDto">
+        SELECT * FROM company_member WHERE company_id = #{company_id}
+    </select>
+
+    <insert id="insertStudyRoom" parameterType="com.spam9700.spam.dto.DetailPageDto">
+        INSERT INTO study_room (company_id, room_name, room_description, time_price, day_price, region, bs_time)
+        VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region}, #{bs_time})
+    </insert>
+
+    <!-- 페이징을 적용한 독서실 목록 조회 -->
+    <select id="getPaginatedRooms" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
+        select * from study_room WHERE company_id = #{company_id} LIMIT #{startIdx}, #{pageSize}
+    </select>
+
+    <!-- 전체 독서실 개수 조회 -->
+    <select id="getTotalRoomsCount" parameterType="String" resultType="int">
+        select count(*) from study_room WHERE company_id = #{company_id}
+    </select>
+
+    <select id="getRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * from study_room WHERE company_id = #{company_id}
+    </select>
+
+    <select id="getAllRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE company_id = #{company_id}
+    </select>
+
+
+    <!-- 지역별 독서실 검색 -->
+    <select id="getRoomsByRegion" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE region = #{region};
+    </select>
+
+    <!-- 키워드를 포함하는 독서실 검색 -->
+    <select id="getRoomsByKeyword" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE room_name LIKE CONCAT('%', #{keyword}, '%');
+    </select>
+
+    <!-- 지역과 키워드를 모두 고려한 독서실 검색 -->
+    <select id="getRoomsByRegionAndKeyword" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE region = #{region} AND room_name LIKE CONCAT('%', #{keyword}, '%');
+    </select>
+
+    <!-- 리뷰 작성 -->
+
+    <insert id="reviewInsert">
+        INSERT INTO review (review_id, review_content, rating, customer_id, room_id)
+        VALUES (#{review_id}, #{review_content}, #{rating}, #{customer_id}, #{room_id})
+    </insert>
+
+    <!-- 최신순으로 댓글 불러오기 -->
+    <select id="getReviewsByRoomId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM review 
+        WHERE room_id = #{room_id}
+        ORDER BY review_date DESC;
+    </select>
+
+    <!-- 상세페이지 리뷰 내역 페이징 -->
+
+    <!-- CompanyMemberDto에서 company_id를 가져오는 SQL -->
+    <select id="getCustomerIdByName" resultType="DetailPageDto">
+        SELECT * FROM customer_member WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- 찜추가 -->
+    <insert id="addToWishList" parameterType="com.spam9700.spam.dto.WishListDto">
+        INSERT INTO wishlist (room_id, customer_id)
+        VALUES (#{room_id}, #{customer_id})
+    </insert>
+
+    <!-- 찜 여부를 확인하는 쿼리 -->
+    <select id="isRoomInWishList" parameterType="com.spam9700.spam.dto.WishListDto" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM wishlist
+        WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    </select>
+
+    <!-- 찜제거 -->
+    <delete id="removeFromWishList" parameterType="com.spam9700.spam.dto.WishListDto">
+        DELETE FROM wishlist
+        WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    </delete>
+
+<!-- 중복 클릭 여부 확인 -->
+<select id="isProductInWishList" resultType="int" parameterType="com.spam9700.spam.dto.WishListDto">
+        SELECT COUNT(*) FROM wishlist WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    </select>
+
+    <select id="isRoomInWishlist" resultType="int" parameterType="com.spam9700.spam.dto.WishListDto">
+        SELECT COUNT(*) FROM wishlist WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    </select>
+
+
+
+    <!--독서실 검색 페이징  -->
+    <select id="getTotalSearchListByCompanyId" resultType="int">
+        select count(*) from study_room
+        WHERE company_id = #{company_id}
+    </select>
+</mapper>
+ 
